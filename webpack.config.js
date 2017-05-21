@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const path = require("path");
+const chalk = require('chalk');
 
 const postcss = {
   loader: 'postcss-loader',
@@ -11,7 +14,9 @@ const postcss = {
   }
 };
 
-const css = ExtractTextPlugin.extract({
+const isProd = process.env.NODE_ENV === "production";
+const cssDev = ['style-loader', 'css-loader', postcss, 'sass-loader'];
+const cssProd = ExtractTextPlugin.extract({
                 fallbackLoader: 'style-loader',
                 loader: ['css-loader', postcss, 'sass-loader'],
               });
@@ -20,7 +25,7 @@ const css = ExtractTextPlugin.extract({
 module.exports = {
   entry: './public/javascript/main.js',
   output: {
-    // path: path.resolve(__dirname, "public", "dist"),
+    path: path.resolve(__dirname, "public", "dist"),
     filename: 'bundle.js',
     publicPath: "http://localhost:8080/public/dist"
   },
@@ -33,7 +38,7 @@ module.exports = {
       },
       {
         test: /\.(s+(a|c)ss|css)$/,
-        use: ['style-loader', 'css-loader', postcss, 'sass-loader']
+        use: isProd ? cssProd : cssDev
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
@@ -42,7 +47,7 @@ module.exports = {
     ]
   },
   devServer: {
-    // contentBase: "path.join(__dirname, "dist")",
+    // contentBase: path.join(__dirname, "dist"),
     compress: true,
     stats: "errors-only",
     open: false,
@@ -52,15 +57,21 @@ module.exports = {
     inline: true
   },
   plugins: [
-      new ExtractTextPlugin({
-         filename: 'style.css',
-         allChunks: true,
-         disable: true
-       }),
-      // new webpack.HotModuleReplacementPlugin(),
-      // new webpack.NamedModulesPlugin()
+    new ExtractTextPlugin({
+       filename: 'style.css',
+       allChunks: true,
+       disable: !isProd
+     }),
+    // new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NamedModulesPlugin()
   ]
 };
+
+if (isProd) {
+  console.log(chalk.bold("\n\n\t PRODUCTION\n\n"));
+} else {
+  console.log(chalk.bold("\n\n\t DEVELOPMENT\n\n"));
+}
 
 process.noDeprecation = true;
 

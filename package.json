@@ -9,11 +9,12 @@
     "node": ">= 7.6.0"
   },
   "scripts": {
-    "start": "npm run clean && concurrently \"npm run watch\" \"npm run assetsD\" -n \"node,webpack\" --prefix name -c \"blue.bold,magenta.bold\"",
+    "prod": "npm run clean && NODE_ENV=production webpack -p",
+    "start": "concurrently \"npm run nodemon\" \"npm run devServer\" -n \"node,webpack\" --prefix name -c \"blue.bold,magenta.bold\"",
     "clean": "rimraf ./public/dist/*",
-    "watch": "nodemon ./start.js --ignore src/",
+    "nodemon": "nodemon ./start.js --ignore src/",
     "assets": "webpack -w --display-max-modules 0",
-    "assetsD": "webpack-dev-server"
+    "devServer": "webpack-dev-server"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
