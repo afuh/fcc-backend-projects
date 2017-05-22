@@ -3,10 +3,8 @@ doctype html
 html
   head
     title= `${title} | ${h.siteName}`
-    if !isProd
-      script(src="http://localhost:8080/public/dist/bundle.js")
-    else    
-      link(rel='stylesheet', href='/dist/style.css')
+    //- script(src="http://localhost:8080/public/dist/bundle.js")  
+    link(rel='stylesheet', href='/dist/style.css')
     link(rel="shortcut icon" type="image/png" href="#")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
