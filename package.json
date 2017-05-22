@@ -9,8 +9,8 @@
     "node": ">= 7.6.0"
   },
   "scripts": {
-    "prod": "npm run clean && NODE_ENV=production webpack -p",
-    "start": "concurrently \"npm run nodemon\" \"npm run devServer\" -n \"node,webpack\" --prefix name -c \"blue.bold,magenta.bold\"",
+    "start": "npm run clean && NODE_ENV=production webpack -p",
+    "dev": "concurrently \"npm run nodemon\" \"npm run devServer\" -n \"node,webpack\" --prefix name -c \"blue.bold,magenta.bold\"",
     "clean": "rimraf ./public/dist/*",
     "nodemon": "nodemon ./start.js --ignore src/",
     "assets": "webpack -w --display-max-modules 0",
@@ -25,7 +25,7 @@
     "concurrently": "^3.4.0",
     "css-loader": "^0.28.1",
     "extract-text-webpack-plugin": "^2.1.0",
-    "moment": "^2.18.1",
+    "moment": "^2.8.4",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
     "normalize.css": "^7.0.0",

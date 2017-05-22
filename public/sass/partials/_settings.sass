@@ -1,0 +1,35 @@
+$cyan: #00BCD4
+$black: #191919
+
+//Flex grid
+=grid-size($col: 1, $total: 4)
+  flex-basis: percentage($col/$total)
+
+//Media queries
+$bpoints: ("xs": 480px, "sm": 768px, "md": 992px, "lg": 1200px)
+=break($key)
+  $val: map-get($bpoints, $key)
+
+  @if map-has-key($bpoints, $key)
+    @media screen and (max-width: $val)
+      @content
+
+=size($width, $height)
+  width: $width
+  height: $height
+
+// Reset
+*
+  box-sizing: border-box
+  // list-style-type: none
+  text-decoration: none
+
+body
+  // font-family: 'Lucida Grande', sans-serif
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif
+  max-width: 1920px
+  margin: 0 auto
+  background: whitesmoke
+
+a
+  color: $black

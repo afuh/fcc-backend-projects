@@ -4,12 +4,12 @@ exports.homeTime = (req, res) => {
   res.render('timestamp', { title: "Timestamp Microservice"})
 }
 
-
 exports.resolveTime = (req, res) => {
   const date = req.params.time;
   const isNum = /^\d+$/.test(date);
-  const nat = (date) => moment.unix(date).format("MMMM Do YYYY");
+  const isDateinMs = date.length > 10 ? date/1000 : date;
   const unix = (date) => moment(date).format("X");
+  const nat = (date) => moment.unix(date).format("MMMM Do YYYY");
 
   const time = {
     unix: null,
@@ -18,7 +18,7 @@ exports.resolveTime = (req, res) => {
 
   if (isNum) {
     time.unix = date;
-    time.natural = nat(date);
+    time.natural = nat(isDateinMs);
   }
   else if (!isNum && moment(date).isValid()) {
     time.unix = unix(date);
