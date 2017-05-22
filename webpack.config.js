@@ -24,6 +24,7 @@ const cssProd = ExtractTextPlugin.extract({
 
 module.exports = {
   entry: './public/javascript/main.js',
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, "public", "dist"),
     filename: 'bundle.js',
@@ -39,6 +40,10 @@ module.exports = {
       {
         test: /\.(s+(a|c)ss|css)$/,
         use: isProd ? cssProd : cssDev
+      },
+      {
+        test: /\.pug$/,
+        loader: 'pug-loader',
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
