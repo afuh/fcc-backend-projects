@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-exports.homeTime = (req, res) => {
+exports.timestamp = (req, res) => {
   res.render('timestamp', { title: "Timestamp Microservice"})
 }
 
