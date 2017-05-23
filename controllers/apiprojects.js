@@ -64,8 +64,7 @@ exports.shrinkit = async (req, res) => {
 
     const showURLs = {
       original: url,
-      short: `http://localhost:7777/shrink-it/${short}`
-      // short: `${process.env.URL}/shrink-it/${short}`
+      short: `${process.env.URL}/shrink-it/${short}`
     }
     res.json( showURLs )
   } else {

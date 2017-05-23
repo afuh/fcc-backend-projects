@@ -8,7 +8,7 @@ mongoose.connection.on('error', (err) => {
   console.error(`🚫 → ${err.message}`);
 });
 
-require('./models/url');
+require('./models/Url');
 
 const app = require('./app');
 
