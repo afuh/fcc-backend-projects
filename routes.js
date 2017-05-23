@@ -1,17 +1,19 @@
 const express = require('express');
-const timestamp = require('./controllers/timestamp');
-const whoami = require('./controllers/whoami');
+const { catchErrors } = require('./errorHandlers');
+const _ = require('./controllers/apiprojects');
 
 const router = express.Router();
 
 router.get('/', (req, res) => res.render('layout'));
 
-router.get('/timestamp', timestamp.timestamp);
-router.get('/timestamp/:time', timestamp.resolveTime);
+router.get('/timestamp', _.timestamp);
+router.get('/timestamp/:time', _.resolveTime);
 
-router.get('/whoami', whoami.whoami);
+router.get('/whoami', _.whoami);
+
+router.get('/shrink', _.shrink);
+router.get('/shrink/:url*', catchErrors(_.shrinkit));
+router.get('/shrink-it/:id', catchErrors(_.findURL));
 
 
 module.exports = router;
-
-//http://ifconfig.io/all.json
