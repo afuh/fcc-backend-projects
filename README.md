@@ -1,3 +1,3 @@
 # FCC Micro-services
 
-* [Timestamp Microservice](https://fcc-backend.herokuapp.com)
+[View it here](https://fcc-backend.herokuapp.com)

@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  section
+    .section
+      h2 API Basejump: URL Shortener Microservice
+      ul
+        li I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.
+        li When I visit that shortened URL, it will redirect me to my original link.
+      
+      h3 Example usage
+      .section__examples.col
+        a(href="/shrink/https://www.google.com") https://fcc-backend.herokuapp.com/shrink/https://www.google.com
+
+      h3 Example output
+      pre.
+        {
+          "original": "https://www.google.com", 
+          "short": "https://fcc-backend.herokuapp.com/shrink-it/549d"
+        }
+          

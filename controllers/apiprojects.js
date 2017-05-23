@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 /* ==== Timestamp Microservice ==== */
 exports.timestamp = (req, res) => {
-  res.render('timestamp', { title: "Timestamp Microservice"})
+  res.render('timestamp', { title: "Timestamp Microservice" })
 }
 
 exports.resolveTime = (req, res) => {
@@ -49,9 +49,7 @@ exports.whoami = (req, res) => {
 
 /* ==== URL Shortener Microservice Incomplete ==== */
 exports.shrink = (req, res) => {
-  const url = req.params.url
-
-  res.send("acá el .pug explicando")
+  res.render('url', { title: "URL Shortener Microservice" })
 }
 
 const Url = mongoose.model('Url');
