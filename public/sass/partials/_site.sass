@@ -1,0 +1,23 @@
+header
+  background: $black
+  padding: 0 10px
+  h1
+    color: whitesmoke
+
+main
+  display: flex
+  height: 100vh
+  +break(sm)
+    flex-flow: column
+
+section
+  +grid-size(10, 12)
+  padding: 10px 20px
+  background: white
+
+nav
+  +grid-size(2, 12)
+  padding: 10px
+  background: whitesmoke
+  a
+    margin: 6px 0
