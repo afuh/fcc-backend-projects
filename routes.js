@@ -15,5 +15,9 @@ router.get('/shrink', _.shrink);
 router.get('/shrink/:url*', catchErrors(_.shrinkit));
 router.get('/shrink-it/:id', catchErrors(_.findURL));
 
+router.get('/images', _.images);
+router.get('/images/:query', catchErrors(_.searchImages));
+router.get('/latest/images', catchErrors(_.recent));
+
 
 module.exports = router;

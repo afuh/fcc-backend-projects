@@ -17,8 +17,8 @@ const postcss = {
 const isProd = process.env.NODE_ENV === "production";
 const cssDev = ['style-loader', 'css-loader', postcss, 'sass-loader'];
 const cssProd = ExtractTextPlugin.extract({
-                fallbackLoader: 'style-loader',
-                loader: ['css-loader', postcss, 'sass-loader'],
+                fallback: 'style-loader',
+                use: ['css-loader', postcss, 'sass-loader'],
               });
 
 
@@ -33,9 +33,9 @@ module.exports = {
   module: {
     rules: [
       {
-          test: /\.jsx?$/,
-          loader: 'babel-loader',
-          exclude: /node_modules/
+        test: /\.jsx?$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.(s+(a|c)ss|css)$/,
@@ -43,7 +43,7 @@ module.exports = {
       },
       {
         test: /\.pug$/,
-        loader: 'pug-loader',
+        use: 'pug-loader',
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,

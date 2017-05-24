@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  section
+    .section
+      h2 Image Search Abstraction Layer
+      ul
+        li I can get the image URLs, alt text and page urls for a set of images relating to a given search string.
+        li I can paginate through the responses by adding a <strong>?offset=2</strong> parameter to the URL.
+        li I can get a list of the most recently submitted search strings.
+      
+      h3 Example usage
+      .section__examples.col
+        a(href="/images/cute+cats") https://fcc-backend.herokuapp.com/images/cute+cats
+        a(href="/images/cute+cats?offset=3") https://fcc-backend.herokuapp.com/images/cute+cats?offset=3
+        a(href="/latest/images") https://fcc-backend.herokuapp.com/latest/images
+      
+      h3 Example output
+      pre.
+        {
+          "url": "https://i.ytimg.com/vi/Vnmxg4h_Mio/hqdefault.jpg",
+          "snippet": "Brave Pet Cat Stands Up To Mountain Lion - Cute Cats VS Mountain ...",
+          "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn...",
+          "context": "https://www.youtube.com/watch?v=Vnmxg4h_Mio",
+          "mime": "image/jpeg"  
+        }
+      h3 Example output (latest images)    
+      pre.
+        {
+          "query": "cute+cats",
+          "date": "2017-05-24T14:04:25.802Z"
+        }

@@ -1,9 +1,15 @@
+/* eslint-disable no-console */
+
 const moment = require('moment');
 const parser = require('ua-parser-js');
 const requestIp = require('request-ip');
 const validator = require('validator');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
+const axios = require('axios');
+
+const Url = mongoose.model('Url');
+const Search = mongoose.model('Search');
 
 
 /* ==== Timestamp Microservice ==== */
@@ -52,8 +58,6 @@ exports.shrink = (req, res) => {
   res.render('url', { title: "URL Shortener Microservice" })
 }
 
-const Url = mongoose.model('Url');
-
 exports.shrinkit = async (req, res) => {
   const url = req.url.replace(/\/shrink\//, '')
   const isUrl = validator.isURL(url, {  protocols: ['http','https'], require_protocol: true });
@@ -84,5 +88,51 @@ exports.findURL = async (req, res) => {
   else {
     res.json({ "error": "That URL is not in the database" });
   }
+}
 
+
+/* ==== Image Search Abstraction Layer ==== */
+exports.images = (req, res) => {
+  res.render('image', { title: 'Image Search Abstraction Layer' });
+}
+
+const search = (query, offset = 1) => {
+  const url = `https://www.googleapis.com/customsearch/v1?q=${query}&searchType=image&sort=date&key=${process.env.API_KEY}&cx=${process.env.SE_ID}&start=${offset}`
+
+  return axios.get(url)
+    .then(response => response.data)
+    .catch(err => console.error(err));
+}
+
+exports.searchImages = async (req, res) => {
+  const query = req.params.query
+  const offset = req.query.offset ? req.query.offset : 1;
+
+  search(query, offset).then(data => {
+    const selectData = [];
+
+    data.items.map((a, i) => {
+      const results = {
+        url: data.items[i].link,
+        snippet: data.items[i].snippet,
+        thumbnail: data.items[i].image.thumbnailLink,
+        context: data.items[i].image.contextLink,
+        mime: data.items[i].mime
+      }
+      selectData.push(results);
+    });
+    res.json(selectData)
+  })
+  const saveSearch = await new Search({ query }).save();
+}
+
+exports.recent = async (req, res) => {
+  const latests = await Search.find().sort({ created: 'desc' }).limit(10);
+  const showLatests = latests.map(latest => {
+    return {
+      query: latest.query,
+      date: latest.created
+    }
+  })
+  res.json(showLatests);
 }

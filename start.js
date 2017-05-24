@@ -9,6 +9,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 require('./models/Url');
+require('./models/Search');
 
 const app = require('./app');
 
