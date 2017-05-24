@@ -19,5 +19,9 @@ router.get('/images', _.images);
 router.get('/images/:query', catchErrors(_.searchImages));
 router.get('/latest/images', catchErrors(_.recent));
 
+router.get('/file', _.add);
+router.post('/file', _.upload, _.showSize);
+
+
 
 module.exports = router;

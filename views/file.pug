@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  section
+    .section
+      h2= title
+      ul
+        li I can submit a FormData object that includes a file upload.
+        li When I submit something, I will receive the file size in bytes within the JSON response
+      
+      h3 Example usage
+      .section__examples
+        form.col(action=`/file` method="POST" enctype="multipart/form-data")
+          label(for='photo') Add an image
+          input.button(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+          input.button(type="submit" value="Save")
+      
+      h3 Example output
+      pre.
+        {
+          "size": "3700703"
+        }

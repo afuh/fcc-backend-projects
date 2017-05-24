@@ -7,6 +7,7 @@ const validator = require('validator');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const axios = require('axios');
+const multer = require('multer');
 
 const Url = mongoose.model('Url');
 const Search = mongoose.model('Search');
@@ -135,4 +136,25 @@ exports.recent = async (req, res) => {
     }
   })
   res.json(showLatests);
+}
+
+/* ==== File Metadata Microservice ==== */
+exports.add = (req, res) => {
+  res.render('file', { title: "File Metadata Microservice" });
+}
+
+exports.upload = multer({
+  storage: multer.memoryStorage(),
+  fileFilter(req, file, cb) {
+    const isPhoto = file.mimetype.startsWith('image/');
+    if(isPhoto) {
+      cb(null, true);
+    } else {
+      cb ({ message: `That filetype isn't allowed!`}, false);
+    }
+  }
+}).single('photo');
+
+exports.showSize = (req, res) => {
+  res.json({"size": req.file.size})
 }
