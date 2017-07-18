@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   res.locals.h = helpers;
+  res.locals.currentPath = req.path;
   next();
 });
 

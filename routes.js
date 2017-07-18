@@ -4,7 +4,7 @@ const _ = require('./controllers/apiprojects');
 
 const router = express.Router();
 
-router.get('/', (req, res) => res.render('layout', { title: "Home" }));
+router.get('/', _.timestamp);
 
 router.get('/timestamp', _.timestamp);
 router.get('/timestamp/:time', _.resolveTime);

@@ -3,7 +3,6 @@ html
   head
     title= `${title} | ${h.siteName}`
     link(rel='stylesheet', href='/dist/style.css') 
-    //- script(src="http://localhost:8080/public/dist/bundle.js")  
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     header.row
@@ -11,6 +10,6 @@ html
     main.row 
       nav.col
         each i in h.menu
-          a(href=i.url) #{i.title}  
+          a(href=i.url style=(currentPath.startsWith(i.url) ? 'color: #00bcd4;' : '')) #{i.title}  
       block content
         section
